@@ -18,3 +18,12 @@
 .animate-blob {
   animation: blob 7s infinite;
 }
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+.animate-shine {
+  animation: shine 3s linear infinite;
+}

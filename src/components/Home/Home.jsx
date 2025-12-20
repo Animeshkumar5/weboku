@@ -1,14 +1,13 @@
-import React from 'react';
-import { ChevronRight, ArrowRight } from 'lucide-react';
-import { motion } from 'framer-motion';
+import React, { useState } from 'react';
+import { ChevronRight, ArrowRight, X, Linkedin, Twitter, Github, Globe, MapPin } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
-// --- Card Component for Stacking Effect ---
-const Card = ({ title, desc, icon, index, total }) => {
+// --- Sub-Component: Process Card (Stacking Effect) ---
+const Card = ({ title, desc, icon, index }) => {
   return (
     <div 
       className="sticky top-0 h-screen flex items-center justify-center"
       style={{ 
-        // This calculates the stacking offset so they don't hide each other completely
         top: `calc(10% + ${index * 30}px)`, 
         zIndex: index + 1 
       }}
@@ -17,44 +16,88 @@ const Card = ({ title, desc, icon, index, total }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        // Dark card design matching ClickWise
-        className="relative w-full max-w-3xl h-[400px] rounded-3xl bg-gray-800 border border-gray-700 shadow-2xl p-10 flex flex-col justify-center overflow-hidden"
+        className="relative w-full max-w-3xl h-[400px] rounded-3xl bg-gray-800/90 backdrop-blur-xl border border-white/10 shadow-2xl p-10 flex flex-col justify-center overflow-hidden"
       >
-        {/* Background Gradient for visual pop */}
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
-
         <div className="relative z-10 flex items-start gap-8">
           <div className="w-20 h-20 bg-blue-600 rounded-2xl flex items-center justify-center text-5xl shadow-lg shrink-0">
             {icon}
           </div>
           <div>
             <h3 className="text-4xl font-bold text-white mb-4">{title}</h3>
-            <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">
-              {desc}
-            </p>
+            <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">{desc}</p>
             <button className="flex items-center text-blue-400 font-bold text-lg hover:text-white transition-colors group">
               Learn How We Do It 
               <ChevronRight className="ml-2 group-hover:translate-x-2 transition-transform" />
             </button>
           </div>
         </div>
-
-        {/* Step Number Background */}
-        <div className="absolute bottom-4 right-8 text-9xl font-bold text-white/5">
-          0{index + 1}
-        </div>
+        <div className="absolute bottom-4 right-8 text-9xl font-bold text-white/5">0{index + 1}</div>
       </motion.div>
     </div>
   );
 };
 
 const Home = () => {
+  // --- States ---
+  const [isExploding, setIsExploding] = useState(false);
+  const [coords, setCoords] = useState({ x: 0, y: 0 });
+  const [selectedTeamId, setSelectedTeamId] = useState(null); // State for Team Card Expansion
+
+  // --- Handlers ---
+  const handleStartProject = (e) => {
+    setCoords({ x: e.clientX, y: e.clientY });
+    setIsExploding(true);
+    setTimeout(() => {
+      setIsExploding(false);
+      const contactSection = document.getElementById('contact');
+      if (contactSection) contactSection.scrollIntoView({ behavior: 'smooth' });
+    }, 800);
+  };
+
+  // --- Data ---
   const services = [
     { title: "Strategic Web Design", desc: "We don't just design pretty sites. We build conversion machines that turn visitors into paying customers.", icon: "🎨" },
     { title: "SEO Domination", desc: "Stop chasing algorithms. We implement proven strategies to rank you #1 for keywords that actually matter.", icon: "🚀" },
     { title: "Performance Marketing", desc: "Data-driven paid campaigns that maximize your ROI. Every dollar spent is tracked and optimized.", icon: "💰" },
     { title: "Brand Identity", desc: "Stand out in a crowded market. We craft memorable brand stories that resonate with your target audience.", icon: "✨" },
     { title: "Custom Development", desc: "Scalable, secure, and lightning-fast code. We build robust solutions for complex business problems.", icon: "💻" }
+  ];
+
+  const team = [
+    {
+      id: 1,
+      name: "Anuj Agrahari",
+      role: "Co-Founder",
+      location: "Lucknow, IN",
+      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400",
+      bio: "Visionary leader with a passion for educational reform and digital assessment strategies. dedicated to building scalable solutions.",
+      skills: ["Assessments", "Mentoring", "Curriculum Design", "Video Marketing", "SEO"],
+      experience: "3+ Years",
+      social: { linkedin: "#", twitter: "#", globe: "#" }
+    },
+    {
+      id: 2,
+      name: "Ratnesh Pandey",
+      role: "Co-Founder",
+      location: "Lucknow, IN",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
+      bio: "Expert in project management and cybersecurity. Orchestrating complex digital infrastructures and strategic planning.",
+      skills: ["SEO", "Project Management", "Cybersecurity", "Strategic Planning", "Execution"],
+      experience: "3+ Years",
+      social: { linkedin: "#", twitter: "#", globe: "#" }
+    },
+    {
+      id: 3,
+      name: "Akash Kumar Das",
+      role: "Tech Team Lead",
+      location: "Lucknow, IN",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+      bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
+      skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
+      experience: "2+ Years",
+      social: { linkedin: "#", github: "#", twitter: "#" }
+    }
   ];
 
   const stats = [
@@ -65,10 +108,27 @@ const Home = () => {
   ];
 
   return (
-    <div className="bg-gray-950"> {/* Overall Dark Background */}
+    <div className="relative"> 
       
-      {/* 1. Stats Section */}
-      <section className="py-20 bg-gray-900 border-b border-gray-800">
+      {/* 1. Click Explosion Overlay */}
+      <AnimatePresence>
+        {isExploding && (
+          <motion.div
+            initial={{ scale: 0, opacity: 0.8 }}
+            animate={{ scale: 200, opacity: 0 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 1.5, ease: "easeOut" }}
+            style={{
+              position: 'fixed', top: coords.y, left: coords.x, width: '20px', height: '20px',
+              borderRadius: '50%', backgroundColor: '#3b82f6', zIndex: 9999, pointerEvents: 'none',
+              transform: 'translate(-50%, -50%)', boxShadow: '0 0 50px rgba(59, 130, 246, 0.5)'
+            }}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* 2. Stats Section */}
+      <section className="py-20 bg-white/5 backdrop-blur-sm border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
@@ -81,40 +141,133 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 2. STACKING CARDS SECTION */}
-      <section className="bg-gray-950 text-white pb-32">
+      {/* 3. Process Section (Stacking Cards) */}
+      <section className="text-white pb-32 relative">
         <div className="max-w-7xl mx-auto px-4 pt-20">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Process</h2>
             <p className="text-xl text-gray-400">Scroll down to see how we deliver results.</p>
           </div>
-
-          {/* This container holds all the stacking cards */}
           <div className="relative">
             {services.map((service, index) => (
-              <Card 
-                key={index} 
-                {...service} 
-                index={index} 
-                total={services.length} 
-              />
+              <Card key={index} {...service} index={index} />
             ))}
           </div>
         </div>
       </section>
 
-      {/* 3. CTA Section */}
-      <section className="py-24 bg-blue-600 text-white text-center relative z-20">
+      {/* 4. TEAM SECTION (Added Here) */}
+      <section className="py-24 relative z-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">The Minds Behind Weboku</h2>
+            <p className="text-xl text-gray-400">Meet the experts driving your digital success.</p>
+          </div>
+
+          {/* Team Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {team.map((member) => (
+              <motion.div
+                layoutId={`card-${member.id}`}
+                key={member.id}
+                onClick={() => setSelectedTeamId(member.id)}
+                className="group relative h-96 cursor-pointer rounded-3xl overflow-hidden bg-gray-800/50 backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-colors"
+                whileHover={{ y: -10 }}
+              >
+                <div className="absolute inset-0">
+                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+                </div>
+                <div className="absolute bottom-0 left-0 p-8 w-full">
+                  <motion.h3 layoutId={`title-${member.id}`} className="text-2xl font-bold text-white mb-1">{member.name}</motion.h3>
+                  <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
+                  <div className="flex items-center text-gray-400 text-sm">
+                    <MapPin size={14} className="mr-1" /> {member.location}
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Expanded Team Card Overlay */}
+          <AnimatePresence>
+            {selectedTeamId && (
+              <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
+                <motion.div
+                  initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
+                  onClick={() => setSelectedTeamId(null)}
+                  className="absolute inset-0 bg-black/80 backdrop-blur-md"
+                />
+                {team.map(member => member.id === selectedTeamId && (
+                  <motion.div
+                    layoutId={`card-${member.id}`}
+                    key={member.id}
+                    className="relative w-full max-w-4xl bg-gray-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[85vh]"
+                  >
+                    <button onClick={() => setSelectedTeamId(null)} className="absolute top-4 right-4 z-20 bg-black/50 p-2 rounded-full text-white hover:bg-white hover:text-black transition-colors">
+                      <X size={24} />
+                    </button>
+                    <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
+                    </div>
+                    <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
+                      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
+                        <motion.h2 layoutId={`title-${member.id}`} className="text-4xl font-bold text-white mb-2">{member.name}</motion.h2>
+                        <motion.p layoutId={`role-${member.id}`} className="text-xl text-blue-400 mb-6 font-medium">{member.role}</motion.p>
+                        <p className="text-gray-300 leading-relaxed mb-8 text-lg">{member.bio}</p>
+                        <div className="mb-8">
+                          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Expertise & Skills</h4>
+                          <div className="flex flex-wrap gap-2">
+                            {member.skills.map((skill, i) => (
+                              <span key={i} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full text-gray-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors">{skill}</span>
+                            ))}
+                          </div>
+                        </div>
+                        <div className="flex items-center justify-between pt-8 border-t border-gray-800">
+                          <div><p className="text-gray-500 text-sm mb-1">Experience</p><p className="text-white font-bold">{member.experience}</p></div>
+                          <div className="flex space-x-4">
+                            {member.social.linkedin && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-600"><Linkedin size={20} /></a>}
+                            {member.social.twitter && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-400"><Twitter size={20} /></a>}
+                            {member.social.github && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700"><Github size={20} /></a>}
+                            {member.social.globe && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-purple-600"><Globe size={20} /></a>}
+                          </div>
+                        </div>
+                      </motion.div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+            )}
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* 5. CTA Section (With Wave Animation) */}
+      <section className="py-32 relative z-20">
+        <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none"></div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="max-w-4xl mx-auto px-4"
+          className="max-w-4xl mx-auto px-4 relative z-10 text-center"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-8">Ready to Scale Your Business?</h2>
-          <button className="bg-white text-blue-600 px-10 py-4 rounded-full font-bold text-lg hover:bg-gray-100 transition-transform hover:scale-105 inline-flex items-center shadow-xl">
-            Start Your Project <ArrowRight className="ml-2" size={24} />
-          </button>
+          <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine leading-tight py-2">
+            Ready to Scale Your Business?
+          </h2>
+          <div className="relative inline-block">
+            <motion.span 
+              animate={{ scale: [1, 1.35], opacity: [0.5, 0] }}
+              transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
+              className="absolute inset-0 rounded-full bg-blue-500"
+            />
+            <button 
+              onClick={handleStartProject}
+              className="relative bg-white text-blue-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.8)] z-10"
+            >
+              Start Your Project <ArrowRight className="ml-2" size={24} />
+            </button>
+          </div>
         </motion.div>
       </section>
     </div>
