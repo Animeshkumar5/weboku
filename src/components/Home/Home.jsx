@@ -42,7 +42,7 @@ const Home = () => {
   // --- States ---
   const [isExploding, setIsExploding] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
-  const [selectedTeamId, setSelectedTeamId] = useState(null); // State for Team Card Expansion
+  const [selectedTeamId, setSelectedTeamId] = useState(null);
 
   // --- Handlers ---
   const handleStartProject = (e) => {
@@ -97,6 +97,18 @@ const Home = () => {
       skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
       experience: "2+ Years",
       social: { linkedin: "#", github: "#", twitter: "#" }
+    },
+    // --- ADDED NEW MEMBER: ANIMESH KUMAR ---
+    {
+      id: 4,
+      name: "Animesh Kumar",
+      role: "Tech Team Lead", // Copied from Akash
+      location: "Lucknow, IN",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400", // New placeholder image
+      bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.", // Copied from Akash
+      skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"], // Copied from Akash
+      experience: "2+ Years", // Copied from Akash
+      social: { linkedin: "#", github: "#", twitter: "#" }
     }
   ];
 
@@ -106,6 +118,9 @@ const Home = () => {
     { number: "10+", label: "Years Exp" },
     { number: "50+", label: "Experts" }
   ];
+
+  // Helper to find selected member
+  const selectedMember = team.find(m => m.id === selectedTeamId);
 
   return (
     <div className="relative"> 
@@ -141,7 +156,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 3. Process Section (Stacking Cards) */}
+      {/* 3. Process Section */}
       <section className="text-white pb-32 relative">
         <div className="max-w-7xl mx-auto px-4 pt-20">
           <div className="text-center mb-20">
@@ -156,94 +171,126 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 4. TEAM SECTION (Added Here) */}
+      {/* 4. TEAM SECTION */}
       <section className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">The Minds Behind Weboku</h2>
+            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+              The Minds Behind <br className="md:hidden" />
+              <span className="bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine"> Weboku</span>
+            </h2>
             <p className="text-xl text-gray-400">Meet the experts driving your digital success.</p>
           </div>
 
-          {/* Team Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {team.map((member) => (
               <motion.div
                 layoutId={`card-${member.id}`}
                 key={member.id}
                 onClick={() => setSelectedTeamId(member.id)}
-                className="group relative h-96 cursor-pointer rounded-3xl overflow-hidden bg-gray-800/50 backdrop-blur-sm border border-white/10 hover:border-blue-500/50 transition-colors"
+                className="group relative h-96 cursor-pointer rounded-3xl overflow-hidden"
                 whileHover={{ y: -10 }}
               >
-                <div className="absolute inset-0">
-                  <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
-                </div>
-                <div className="absolute bottom-0 left-0 p-8 w-full">
-                  <motion.h3 layoutId={`title-${member.id}`} className="text-2xl font-bold text-white mb-1">{member.name}</motion.h3>
-                  <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
-                  <div className="flex items-center text-gray-400 text-sm">
-                    <MapPin size={14} className="mr-1" /> {member.location}
-                  </div>
+                {/* 1. ANIMATED BORDER LAYER (Z-0) */}
+                <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,theme(colors.blue.500)_360deg)] opacity-0 group-hover:opacity-100 group-hover:animate-spin-slow transition-opacity duration-500 z-0" />
+                
+                {/* 2. MASK LAYER (Z-10) */}
+                <div className="absolute inset-[2px] bg-gray-900 rounded-[22px] z-10" />
+
+                {/* 3. CONTENT LAYER (Z-20) */}
+                <div className="relative z-20 h-full w-full rounded-3xl overflow-hidden">
+                    <div className="absolute inset-0">
+                      <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                      <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
+                    </div>
+                    <div className="absolute bottom-0 left-0 p-8 w-full">
+                      <motion.h3 layoutId={`title-${member.id}`} className="text-2xl font-bold text-white mb-1">{member.name}</motion.h3>
+                      <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
+                      <div className="flex items-center text-gray-400 text-sm">
+                        <MapPin size={14} className="mr-1" /> {member.location}
+                      </div>
+                    </div>
                 </div>
               </motion.div>
             ))}
           </div>
 
-          {/* Expanded Team Card Overlay */}
+          {/* Modal Overlay */}
           <AnimatePresence>
-            {selectedTeamId && (
+            {selectedTeamId && selectedMember && (
               <div className="fixed inset-0 z-[100] flex items-center justify-center px-4">
                 <motion.div
                   initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                   onClick={() => setSelectedTeamId(null)}
                   className="absolute inset-0 bg-black/80 backdrop-blur-md"
                 />
-                {team.map(member => member.id === selectedTeamId && (
-                  <motion.div
-                    layoutId={`card-${member.id}`}
-                    key={member.id}
-                    className="relative w-full max-w-4xl bg-gray-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[85vh]"
+                
+                <motion.div
+                  layoutId={`card-${selectedMember.id}`}
+                  className="relative w-full max-w-4xl bg-gray-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[85vh] z-10"
+                >
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); setSelectedTeamId(null); }} 
+                    className="absolute top-4 right-4 z-50 bg-black/50 p-2 rounded-full text-white hover:bg-white hover:text-black transition-colors"
                   >
-                    <button onClick={() => setSelectedTeamId(null)} className="absolute top-4 right-4 z-20 bg-black/50 p-2 rounded-full text-white hover:bg-white hover:text-black transition-colors">
-                      <X size={24} />
-                    </button>
-                    <div className="w-full md:w-2/5 h-64 md:h-auto relative">
-                      <img src={member.image} alt={member.name} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
-                    </div>
-                    <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
-                      <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }}>
-                        <motion.h2 layoutId={`title-${member.id}`} className="text-4xl font-bold text-white mb-2">{member.name}</motion.h2>
-                        <motion.p layoutId={`role-${member.id}`} className="text-xl text-blue-400 mb-6 font-medium">{member.role}</motion.p>
-                        <p className="text-gray-300 leading-relaxed mb-8 text-lg">{member.bio}</p>
-                        <div className="mb-8">
-                          <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Expertise & Skills</h4>
-                          <div className="flex flex-wrap gap-2">
-                            {member.skills.map((skill, i) => (
-                              <span key={i} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full text-gray-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors">{skill}</span>
-                            ))}
-                          </div>
+                    <X size={24} />
+                  </button>
+
+                  <div className="w-full md:w-2/5 h-64 md:h-auto relative">
+                    <motion.img 
+                      layoutId={`image-${selectedMember.id}`}
+                      src={selectedMember.image} 
+                      alt={selectedMember.name} 
+                      className="w-full h-full object-cover" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
+                  </div>
+
+                  <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto custom-scrollbar">
+                    <motion.div 
+                      initial={{ opacity: 0, y: 20 }} 
+                      animate={{ opacity: 1, y: 0 }} 
+                      exit={{ opacity: 0, y: 20 }}
+                      transition={{ delay: 0.1 }}
+                    >
+                      <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-4xl font-bold text-white mb-2">{selectedMember.name}</motion.h2>
+                      <motion.p layoutId={`role-${selectedMember.id}`} className="text-xl text-blue-400 mb-6 font-medium">{selectedMember.role}</motion.p>
+                      
+                      <p className="text-gray-300 leading-relaxed mb-8 text-lg">{selectedMember.bio}</p>
+                      
+                      <div className="mb-8">
+                        <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Expertise & Skills</h4>
+                        <div className="flex flex-wrap gap-2">
+                          {selectedMember.skills.map((skill, i) => (
+                            <span key={i} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full text-gray-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors cursor-default">
+                              {skill}
+                            </span>
+                          ))}
                         </div>
-                        <div className="flex items-center justify-between pt-8 border-t border-gray-800">
-                          <div><p className="text-gray-500 text-sm mb-1">Experience</p><p className="text-white font-bold">{member.experience}</p></div>
-                          <div className="flex space-x-4">
-                            {member.social.linkedin && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-600"><Linkedin size={20} /></a>}
-                            {member.social.twitter && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-400"><Twitter size={20} /></a>}
-                            {member.social.github && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700"><Github size={20} /></a>}
-                            {member.social.globe && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-purple-600"><Globe size={20} /></a>}
-                          </div>
+                      </div>
+
+                      <div className="flex items-center justify-between pt-8 border-t border-gray-800">
+                        <div>
+                          <p className="text-gray-500 text-sm mb-1">Experience</p>
+                          <p className="text-white font-bold">{selectedMember.experience}</p>
                         </div>
-                      </motion.div>
-                    </div>
-                  </motion.div>
-                ))}
+                        <div className="flex space-x-4">
+                          {selectedMember.social.linkedin && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-600 transition-colors"><Linkedin size={20} /></a>}
+                          {selectedMember.social.twitter && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-400 transition-colors"><Twitter size={20} /></a>}
+                          {selectedMember.social.github && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-gray-700 transition-colors"><Github size={20} /></a>}
+                          {selectedMember.social.globe && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-purple-600 transition-colors"><Globe size={20} /></a>}
+                        </div>
+                      </div>
+                    </motion.div>
+                  </div>
+                </motion.div>
               </div>
             )}
           </AnimatePresence>
         </div>
       </section>
 
-      {/* 5. CTA Section (With Wave Animation) */}
+      {/* 5. CTA Section */}
       <section className="py-32 relative z-20">
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none"></div>
         <motion.div
