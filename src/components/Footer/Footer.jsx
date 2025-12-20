@@ -1,41 +1,101 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Twitter, Linkedin, Github, Instagram, Heart } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
-    <footer className="bg-gray-900 text-white py-12">
+    // 1. Modern Glass Background
+    <footer className="relative z-10 bg-gray-950/60 backdrop-blur-xl border-t border-white/5 pt-20 pb-10 overflow-hidden">
+      
+      {/* Decorative Top Gradient Line */}
+      <div className="absolute top-0 left-0 w-full h-[1px] bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid md:grid-cols-4 gap-8 mb-8">
-          <div>
-            <h3 className="text-2xl font-bold mb-4">Weboku</h3>
-            <p className="text-gray-400">Transforming businesses through innovative digital solutions.</p>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Services</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">Web Design</a></li>
-              <li><a href="#" className="hover:text-white">SEO</a></li>
-              <li><a href="#" className="hover:text-white">Digital Marketing</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Company</h4>
-            <ul className="space-y-2 text-gray-400">
-              <li><a href="#" className="hover:text-white">About Us</a></li>
-              <li><a href="#" className="hover:text-white">Careers</a></li>
-              <li><a href="#" className="hover:text-white">Contact</a></li>
-            </ul>
-          </div>
-          <div>
-            <h4 className="font-semibold mb-4">Newsletter</h4>
-            <div className="flex">
-              <input type="email" placeholder="Your email" className="flex-1 px-4 py-2 rounded-l-lg bg-gray-800 border border-gray-700 focus:outline-none focus:border-blue-600" />
-              <button className="bg-blue-600 px-4 py-2 rounded-r-lg hover:bg-blue-700 transition-colors"><ArrowRight size={20} /></button>
+        <div className="grid md:grid-cols-4 gap-12 mb-16">
+          
+          {/* Column 1: Brand Info */}
+          <div className="space-y-6">
+            <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-[length:200%_auto] animate-shine">
+              Weboku
+            </h3>
+            <p className="text-gray-400 leading-relaxed">
+              Transforming businesses through innovative digital solutions. We build experiences that matter.
+            </p>
+            <div className="flex space-x-4">
+              {[Twitter, Linkedin, Github, Instagram].map((Icon, i) => (
+                <a 
+                  key={i} 
+                  href="#" 
+                  className="p-2 rounded-full bg-white/5 border border-white/10 hover:bg-blue-600 hover:border-blue-500 hover:text-white text-gray-400 transition-all duration-300 group"
+                >
+                  <Icon size={18} className="group-hover:scale-110 transition-transform" />
+                </a>
+              ))}
             </div>
           </div>
+
+          {/* Column 2: Services */}
+          <div>
+            <h4 className="text-white font-bold text-lg mb-6">Services</h4>
+            <ul className="space-y-4">
+              {['Web Design', 'SEO Optimization', 'Digital Marketing', 'App Development', 'Consulting'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center group">
+                    <span className="w-0 group-hover:w-2 h-[2px] bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 3: Company */}
+          <div>
+            <h4 className="text-white font-bold text-lg mb-6">Company</h4>
+            <ul className="space-y-4">
+              {['About Us', 'Our Team', 'Careers', 'Case Studies', 'Privacy Policy'].map((item) => (
+                <li key={item}>
+                  <a href="#" className="text-gray-400 hover:text-blue-400 transition-colors flex items-center group">
+                    <span className="w-0 group-hover:w-2 h-[2px] bg-blue-400 mr-0 group-hover:mr-2 transition-all duration-300"></span>
+                    {item}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4: Newsletter */}
+          <div>
+            <h4 className="text-white font-bold text-lg mb-6">Stay Updated</h4>
+            <p className="text-gray-400 mb-6 text-sm">
+              Subscribe to our newsletter for the latest tech trends and updates.
+            </p>
+            <form className="relative">
+              <input 
+                type="email" 
+                placeholder="Enter your email" 
+                className="w-full px-4 py-3 rounded-lg bg-gray-900/50 border border-white/10 focus:border-blue-500 focus:ring-1 focus:ring-blue-500 outline-none text-white placeholder-gray-600 transition-all"
+              />
+              <button 
+                type="submit" 
+                className="absolute right-2 top-2 bg-blue-600 p-1.5 rounded-md text-white hover:bg-blue-500 transition-colors shadow-lg shadow-blue-600/20"
+              >
+                <ArrowRight size={18} />
+              </button>
+            </form>
+          </div>
         </div>
-        <div className="border-t border-gray-800 pt-8 text-center text-gray-400">
-          <p>&copy; 2025 Weboku. All rights reserved.</p>
+
+        {/* Bottom Bar */}
+        <div className="border-t border-white/5 pt-8 flex flex-col md:flex-row justify-between items-center text-gray-500 text-sm">
+          <p>&copy; {currentYear} Weboku. All rights reserved.</p>
+          <div className="flex items-center space-x-1 mt-4 md:mt-0">
+            <span>Made with</span>
+            <Heart size={14} className="text-red-500 fill-red-500 animate-pulse" />
+            <span>in Lucknow, India.</span>
+          </div>
         </div>
       </div>
     </footer>
