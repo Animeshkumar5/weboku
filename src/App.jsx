@@ -6,8 +6,10 @@ import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import Preloader from './components/Preloader/Preloader';
-// 1. Import the Background
-import InteractiveBackground from './components/InteractiveBackground'; 
+import InteractiveBackground from './components/InteractiveBackground';
+import ScrollToTop from './components/ScrollToTop'; 
+// 1. Import the Floating Mail Component
+import FloatingMail from './components/FloatingMail'; 
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -24,7 +26,6 @@ function App() {
   }, []);
 
   return (
-    // 2. Remove "bg-gray-950" here because our InteractiveBackground handles the color now
     <div className="min-h-screen relative"> 
       
       <AnimatePresence mode="wait">
@@ -32,7 +33,6 @@ function App() {
       </AnimatePresence>
 
       <div className={isLoading ? "hidden" : "block"}>
-        {/* 3. Add the Background Component here */}
         <InteractiveBackground />
         
         <Header isScrolled={isScrolled} />
@@ -40,6 +40,12 @@ function App() {
         <Home />
         <Contact />
         <Footer />
+        
+        {/* Floating Tools */}
+        <ScrollToTop />
+        {/* 2. Add Floating Mail here */}
+        <FloatingMail />
+        
       </div>
     </div>
   );
