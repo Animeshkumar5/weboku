@@ -51,8 +51,8 @@ const Card = ({ title, desc, icon, index }) => {
             {icon}
           </div>
           <div>
-            {/* Reverted to default font */}
-            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h3>
+            {/* UPDATED: Added font-tech to card heading */}
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-tech uppercase tracking-wide">{title}</h3>
             <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">{desc}</p>
             <button className="flex items-center text-blue-400 font-bold text-lg hover:text-white transition-colors group">
               Learn How We Do It 
@@ -241,8 +241,8 @@ const Home = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
                     </div>
                     <div className="absolute bottom-0 left-0 p-8 w-full">
-                      {/* Reverted name to default font */}
-                      <motion.h3 layoutId={`title-${member.id}`} className="text-xl md:text-2xl font-bold text-white mb-1 uppercase">{member.name}</motion.h3>
+                      {/* UPDATED: Added font-tech to team member name */}
+                      <motion.h3 layoutId={`title-${member.id}`} className="text-xl md:text-2xl font-bold text-white mb-1 font-tech uppercase">{member.name}</motion.h3>
                       <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
                       <div className="flex items-center text-gray-400 text-sm">
                         <MapPin size={14} className="mr-1" /> {member.location}
@@ -276,8 +276,8 @@ const Home = () => {
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto custom-scrollbar">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }}>
-                      {/* Reverted name to default font */}
-                      <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-3xl md:text-4xl font-bold text-white mb-2 uppercase">{selectedMember.name}</motion.h2>
+                      {/* UPDATED: Added font-tech to modal title (name) */}
+                      <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-3xl md:text-4xl font-bold text-white mb-2 font-tech uppercase">{selectedMember.name}</motion.h2>
                       <motion.p layoutId={`role-${selectedMember.id}`} className="text-xl text-blue-400 mb-6 font-medium">{selectedMember.role}</motion.p>
                       <p className="text-gray-300 leading-relaxed mb-8 text-lg">{selectedMember.bio}</p>
                       <div className="mb-8">
