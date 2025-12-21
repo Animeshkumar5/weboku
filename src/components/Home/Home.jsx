@@ -2,15 +2,12 @@ import React, { useState } from 'react';
 import { ChevronRight, ArrowRight, X, Linkedin, Twitter, Github, Globe, MapPin } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-// --- Sub-Component: Process Card (Stacking Effect) ---
+// --- Sub-Component: Process Card (Unchanged) ---
 const Card = ({ title, desc, icon, index }) => {
   return (
     <div 
       className="sticky top-0 h-screen flex items-center justify-center"
-      style={{ 
-        top: `calc(10% + ${index * 30}px)`, 
-        zIndex: index + 1 
-      }}
+      style={{ top: `calc(10% + ${index * 30}px)`, zIndex: index + 1 }}
     >
       <motion.div 
         initial={{ scale: 0.9, opacity: 0 }}
@@ -39,12 +36,10 @@ const Card = ({ title, desc, icon, index }) => {
 };
 
 const Home = () => {
-  // --- States ---
   const [isExploding, setIsExploding] = useState(false);
   const [coords, setCoords] = useState({ x: 0, y: 0 });
   const [selectedTeamId, setSelectedTeamId] = useState(null);
 
-  // --- Handlers ---
   const handleStartProject = (e) => {
     setCoords({ x: e.clientX, y: e.clientY });
     setIsExploding(true);
@@ -55,7 +50,6 @@ const Home = () => {
     }, 800);
   };
 
-  // --- Data ---
   const services = [
     { title: "Strategic Web Design", desc: "We don't just design pretty sites. We build conversion machines that turn visitors into paying customers.", icon: "🎨" },
     { title: "SEO Domination", desc: "Stop chasing algorithms. We implement proven strategies to rank you #1 for keywords that actually matter.", icon: "🚀" },
@@ -98,16 +92,15 @@ const Home = () => {
       experience: "2+ Years",
       social: { linkedin: "#", github: "#", twitter: "#" }
     },
-    // --- ADDED NEW MEMBER: ANIMESH KUMAR ---
     {
       id: 4,
       name: "Animesh Kumar",
-      role: "Tech Team Lead", // Copied from Akash
+      role: "Tech Team Lead",
       location: "Lucknow, IN",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400", // New placeholder image
-      bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.", // Copied from Akash
-      skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"], // Copied from Akash
-      experience: "2+ Years", // Copied from Akash
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+      bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
+      skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
+      experience: "2+ Years",
       social: { linkedin: "#", github: "#", twitter: "#" }
     }
   ];
@@ -125,7 +118,7 @@ const Home = () => {
   return (
     <div className="relative"> 
       
-      {/* 1. Click Explosion Overlay */}
+      {/* Click Explosion Overlay */}
       <AnimatePresence>
         {isExploding && (
           <motion.div
@@ -142,7 +135,7 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* 2. Stats Section */}
+      {/* Stats Section */}
       <section className="py-20 bg-white/5 backdrop-blur-sm border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
@@ -156,8 +149,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 3. Process Section */}
-      <section className="text-white pb-32 relative">
+      {/* --- ID ADDED: PROCESS SECTION --- */}
+      <section id="process" className="text-white pb-32 relative">
         <div className="max-w-7xl mx-auto px-4 pt-20">
           <div className="text-center mb-20">
             <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Process</h2>
@@ -171,8 +164,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 4. TEAM SECTION */}
-      <section className="py-24 relative z-10">
+      {/* --- ID ADDED: TEAM SECTION --- */}
+      <section id="team" className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
@@ -191,13 +184,8 @@ const Home = () => {
                 className="group relative h-96 cursor-pointer rounded-3xl overflow-hidden"
                 whileHover={{ y: -10 }}
               >
-                {/* 1. ANIMATED BORDER LAYER (Z-0) */}
                 <div className="absolute inset-[-50%] bg-[conic-gradient(from_0deg,transparent_0_340deg,theme(colors.blue.500)_360deg)] opacity-0 group-hover:opacity-100 group-hover:animate-spin-slow transition-opacity duration-500 z-0" />
-                
-                {/* 2. MASK LAYER (Z-10) */}
                 <div className="absolute inset-[2px] bg-gray-900 rounded-[22px] z-10" />
-
-                {/* 3. CONTENT LAYER (Z-20) */}
                 <div className="relative z-20 h-full w-full rounded-3xl overflow-hidden">
                     <div className="absolute inset-0">
                       <img src={member.image} alt={member.name} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" />
@@ -229,51 +217,28 @@ const Home = () => {
                   layoutId={`card-${selectedMember.id}`}
                   className="relative w-full max-w-4xl bg-gray-900 border border-white/10 rounded-3xl overflow-hidden shadow-2xl flex flex-col md:flex-row max-h-[85vh] z-10"
                 >
-                  <button 
-                    onClick={(e) => { e.stopPropagation(); setSelectedTeamId(null); }} 
-                    className="absolute top-4 right-4 z-50 bg-black/50 p-2 rounded-full text-white hover:bg-white hover:text-black transition-colors"
-                  >
+                  <button onClick={(e) => { e.stopPropagation(); setSelectedTeamId(null); }} className="absolute top-4 right-4 z-50 bg-black/50 p-2 rounded-full text-white hover:bg-white hover:text-black transition-colors">
                     <X size={24} />
                   </button>
-
                   <div className="w-full md:w-2/5 h-64 md:h-auto relative">
-                    <motion.img 
-                      layoutId={`image-${selectedMember.id}`}
-                      src={selectedMember.image} 
-                      alt={selectedMember.name} 
-                      className="w-full h-full object-cover" 
-                    />
+                    <motion.img layoutId={`image-${selectedMember.id}`} src={selectedMember.image} alt={selectedMember.name} className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent md:bg-gradient-to-r"></div>
                   </div>
-
                   <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto custom-scrollbar">
-                    <motion.div 
-                      initial={{ opacity: 0, y: 20 }} 
-                      animate={{ opacity: 1, y: 0 }} 
-                      exit={{ opacity: 0, y: 20 }}
-                      transition={{ delay: 0.1 }}
-                    >
+                    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }}>
                       <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-4xl font-bold text-white mb-2">{selectedMember.name}</motion.h2>
                       <motion.p layoutId={`role-${selectedMember.id}`} className="text-xl text-blue-400 mb-6 font-medium">{selectedMember.role}</motion.p>
-                      
                       <p className="text-gray-300 leading-relaxed mb-8 text-lg">{selectedMember.bio}</p>
-                      
                       <div className="mb-8">
                         <h4 className="text-sm font-semibold text-gray-500 uppercase tracking-wider mb-4">Expertise & Skills</h4>
                         <div className="flex flex-wrap gap-2">
                           {selectedMember.skills.map((skill, i) => (
-                            <span key={i} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full text-gray-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors cursor-default">
-                              {skill}
-                            </span>
+                            <span key={i} className="px-4 py-2 bg-gray-800 border border-gray-700 rounded-full text-gray-300 text-sm hover:border-blue-500 hover:text-blue-400 transition-colors cursor-default">{skill}</span>
                           ))}
                         </div>
                       </div>
-
                       <div className="flex items-center justify-between pt-8 border-t border-gray-800">
-                        <div>
-                          <p className="text-gray-500 text-sm mb-1">Experience</p>
-                          <p className="text-white font-bold">{selectedMember.experience}</p>
-                        </div>
+                        <div><p className="text-gray-500 text-sm mb-1">Experience</p><p className="text-white font-bold">{selectedMember.experience}</p></div>
                         <div className="flex space-x-4">
                           {selectedMember.social.linkedin && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-600 transition-colors"><Linkedin size={20} /></a>}
                           {selectedMember.social.twitter && <a href="#" className="p-2 bg-gray-800 rounded-lg text-gray-400 hover:text-white hover:bg-blue-400 transition-colors"><Twitter size={20} /></a>}
@@ -290,8 +255,8 @@ const Home = () => {
         </div>
       </section>
 
-      {/* 5. CTA Section */}
-      <section className="py-32 relative z-20">
+      {/* --- ID ADDED: GET-STARTED SECTION --- */}
+      <section id="get-started" className="py-32 relative z-20">
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none"></div>
         <motion.div
           initial={{ opacity: 0, y: 30 }}

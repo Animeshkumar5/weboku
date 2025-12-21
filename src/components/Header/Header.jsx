@@ -4,9 +4,31 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const Header = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [activeTab, setActiveTab] = useState('Home'); // Tracks the active/hovered link
+  const [activeTab, setActiveTab] = useState('Home');
 
-  const navLinks = ['Home', 'Services', 'About', 'Portfolio', 'Contact'];
+  // ✅ UPDATED: Added 'Projects' to the list
+  const navLinks = ['Home', 'Process', 'Projects', 'Team', 'Contact'];
+
+  // Smooth Scroll Handler
+  const handleScroll = (e, targetId) => {
+    e.preventDefault();
+    const element = document.getElementById(targetId.toLowerCase());
+    
+    if (element) {
+      // Offset for fixed header height
+      const headerOffset = 80; 
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+      
+      setActiveTab(targetId);
+      setIsMenuOpen(false);
+    }
+  };
 
   return (
     <motion.nav
@@ -23,7 +45,7 @@ const Header = ({ isScrolled }) => {
         <div className="flex justify-between items-center h-16">
           
           {/* Logo */}
-          <div className="flex items-center cursor-pointer">
+          <div className="flex items-center cursor-pointer" onClick={(e) => handleScroll(e, 'Home')}>
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
               Weboku
             </span>
@@ -35,11 +57,10 @@ const Header = ({ isScrolled }) => {
               <a
                 key={item}
                 href={`#${item.toLowerCase()}`}
-                onClick={() => setActiveTab(item)}
+                onClick={(e) => handleScroll(e, item)}
                 onMouseEnter={() => setActiveTab(item)}
                 className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors"
               >
-                {/* The Floating Pill Animation */}
                 {activeTab === item && (
                   <motion.span
                     layoutId="bubble"
@@ -47,18 +68,17 @@ const Header = ({ isScrolled }) => {
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                
-                {/* Text */}
                 <span className={isScrolled ? 'text-gray-200' : 'text-white'}>
                   {item}
                 </span>
               </a>
             ))}
 
-            {/* CTA Button */}
+            {/* CTA Button -> Jumps to 'get-started' section */}
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={(e) => handleScroll(e, 'get-started')}
               className="ml-4 bg-white text-gray-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.3)]"
             >
               Get Started
@@ -77,7 +97,7 @@ const Header = ({ isScrolled }) => {
         </div>
       </div>
 
-      {/* Mobile Menu (Animated) */}
+      {/* Mobile Menu */}
       <AnimatePresence>
         {isMenuOpen && (
           <motion.div
@@ -92,13 +112,16 @@ const Header = ({ isScrolled }) => {
                   key={item}
                   href={`#${item.toLowerCase()}`}
                   className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all font-medium"
-                  onClick={() => setIsMenuOpen(false)}
+                  onClick={(e) => handleScroll(e, item)}
                 >
                   {item}
                 </a>
               ))}
               <div className="pt-4">
-                 <button className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold">
+                 <button 
+                   onClick={(e) => handleScroll(e, 'get-started')}
+                   className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold"
+                 >
                     Get Started
                  </button>
               </div>

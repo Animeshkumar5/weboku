@@ -2,13 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
+// 1. IMPORT CLIENTS
+import Clients from './components/Clients/Clients'; 
 import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
 import Footer from './components/Footer/Footer';
 import Preloader from './components/Preloader/Preloader';
 import InteractiveBackground from './components/InteractiveBackground';
 import ScrollToTop from './components/ScrollToTop'; 
-// 1. Import the Floating Mail Component
 import FloatingMail from './components/FloatingMail'; 
 
 function App() {
@@ -37,13 +38,15 @@ function App() {
         
         <Header isScrolled={isScrolled} />
         <Hero />
+        
+        {/* 2. ADD CLIENTS COMPONENT HERE */}
+        <Clients />
+
         <Home />
         <Contact />
         <Footer />
         
-        {/* Floating Tools */}
         <ScrollToTop />
-        {/* 2. Add Floating Mail here */}
         <FloatingMail />
         
       </div>
