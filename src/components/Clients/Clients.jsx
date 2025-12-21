@@ -57,9 +57,11 @@ import stormImg2 from '../../assets/Client/stormdigi/2.png';
 import stormImg3 from '../../assets/Client/stormdigi/3.png';
 
 // --- UnoTrip ---
+// ✅ Using your new 'tripdata' folder to avoid casing errors
 import unoLogo from '../../assets/Client/tripdata/1.png';
 import unoImg1 from '../../assets/Client/tripdata/2.png';
 import unoImg2 from '../../assets/Client/tripdata/3.png';
+
 
 // ==========================================
 // 2. DATA CONFIGURATION
@@ -183,7 +185,7 @@ const Clients = () => {
             <motion.div 
               key={`${client.id}-${index}`} 
               onClick={() => setSelectedClient(client)}
-              whileHover={{ scale: 1.05, zIndex: 10 }}
+              whileHover={{ scale: 1.05, zIndex: 10 }} // Pop up scale
               className="relative w-[500px] h-[300px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group border border-white/5 bg-gray-900 shadow-xl"
             >
               {/* 1. Image Layer */}
@@ -202,7 +204,8 @@ const Clients = () => {
               </div>
 
               {/* 3. Text & Button (Reveals on Hover) */}
-              <div className="absolute inset-0 flex flex-col justify-end p-8 z-20">
+              {/* ✅ FIX: Increased bottom padding (pb-12) to push title higher up */}
+              <div className="absolute inset-0 flex flex-col justify-end px-8 pb-12 z-20">
                 <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
                   <h4 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">{client.name}</h4>
                   

@@ -1,6 +1,5 @@
 import React from 'react';
 import { ArrowRight, Twitter, Linkedin, Github, Instagram, Heart } from 'lucide-react';
-import { motion } from 'framer-motion';
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -17,9 +16,18 @@ const Footer = () => {
           
           {/* Column 1: Brand Info */}
           <div className="space-y-6">
-            <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-[length:200%_auto] animate-shine">
-              Weboku
-            </h3>
+            {/* LOGO ADDED HERE */}
+            <div className="flex items-center gap-3">
+              <img 
+                src="/favicon/favicon-96x96.png" 
+                alt="Weboku Logo" 
+                className="w-10 h-10 object-contain rounded-lg shadow-blue-500/20 shadow-lg" 
+              />
+              <h3 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 bg-[length:200%_auto] animate-shine">
+                Weboku
+              </h3>
+            </div>
+            
             <p className="text-gray-400 leading-relaxed">
               Transforming businesses through innovative digital solutions. We build experiences that matter.
             </p>

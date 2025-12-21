@@ -6,7 +6,7 @@ const Header = ({ isScrolled }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [activeTab, setActiveTab] = useState('Home');
 
-  // ✅ UPDATED: Added 'Projects' to the list
+  // Navigation Links
   const navLinks = ['Home', 'Process', 'Projects', 'Team', 'Contact'];
 
   // Smooth Scroll Handler
@@ -44,8 +44,14 @@ const Header = ({ isScrolled }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
-          {/* Logo */}
-          <div className="flex items-center cursor-pointer" onClick={(e) => handleScroll(e, 'Home')}>
+          {/* --- LOGO SECTION UPDATED --- */}
+          <div className="flex items-center cursor-pointer gap-3" onClick={(e) => handleScroll(e, 'Home')}>
+            {/* Added Favicon Image */}
+            <img 
+              src="/favicon/favicon-96x96.png" 
+              alt="Weboku Logo" 
+              className="w-10 h-10 object-contain rounded-lg" 
+            />
             <span className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-cyan-300">
               Weboku
             </span>
@@ -74,7 +80,7 @@ const Header = ({ isScrolled }) => {
               </a>
             ))}
 
-            {/* CTA Button -> Jumps to 'get-started' section */}
+            {/* CTA Button */}
             <motion.button 
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
