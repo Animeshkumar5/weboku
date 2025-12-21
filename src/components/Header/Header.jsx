@@ -80,15 +80,17 @@ const Header = ({ isScrolled }) => {
               </a>
             ))}
 
-            {/* CTA Button */}
-            <motion.button 
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={(e) => handleScroll(e, 'get-started')}
-              className="ml-4 bg-white text-gray-900 px-6 py-2.5 rounded-full font-bold text-sm hover:bg-blue-50 transition-colors shadow-[0_0_15px_rgba(255,255,255,0.3)]"
-            >
-              Get Started
-            </motion.button>
+            {/* CTA Button with Gradient Outline Effect */}
+            <div className="ml-4 group p-[2px] rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-blue-500/40">
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
+                onClick={(e) => handleScroll(e, 'get-started')}
+                // Inner button logic: solid bg normally, transparent on hover to show full gradient
+                className="bg-gray-900 text-white px-6 py-2 rounded-full font-bold text-sm group-hover:bg-transparent transition-all relative z-10 block"
+              >
+                Get Started
+              </motion.button>
+            </div>
           </div>
 
           {/* Mobile Menu Button */}
@@ -124,12 +126,15 @@ const Header = ({ isScrolled }) => {
                 </a>
               ))}
               <div className="pt-4">
-                 <button 
-                   onClick={(e) => handleScroll(e, 'get-started')}
-                   className="w-full bg-blue-600 text-white px-6 py-3 rounded-lg font-bold"
-                 >
-                    Get Started
-                 </button>
+                 {/* Mobile CTA with Gradient Outline */}
+                 <div className="w-full p-[2px] rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500">
+                    <button 
+                      onClick={(e) => handleScroll(e, 'get-started')}
+                      className="w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors"
+                    >
+                      Get Started
+                    </button>
+                 </div>
               </div>
             </div>
           </motion.div>
