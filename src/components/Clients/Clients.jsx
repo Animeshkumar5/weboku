@@ -162,10 +162,26 @@ const Clients = () => {
   return (
     <section id="projects" className="py-24 bg-gray-950 border-b border-white/5 overflow-hidden relative z-10">
       
+      {/* --- ADDED FONT IMPORT AND CUSTOM CLASS --- */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+          .font-tech {
+            font-family: 'Michroma', sans-serif;
+          }
+        `}
+      </style>
+
       {/* Header */}
       <div className="max-w-7xl mx-auto px-4 mb-16 text-center">
         <p className="text-blue-400 font-bold tracking-widest text-sm uppercase mb-3">Our Work</p>
-        <h3 className="text-4xl md:text-5xl font-bold text-white mb-6">Featured Projects</h3>
+        
+        {/* --- UPDATED TITLE WITH ANIMATION AND FONT --- */}
+        <h3 className="text-3xl md:text-5xl font-bold text-white mb-6 font-tech uppercase tracking-wide leading-relaxed">
+          Featured <br className="md:hidden" />
+          <span className="bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine"> Projects</span>
+        </h3>
+
         <p className="text-gray-400 max-w-2xl mx-auto">Explore some of the groundbreaking digital experiences we've built for our partners.</p>
       </div>
 
@@ -203,10 +219,11 @@ const Clients = () => {
               </div>
 
               {/* 3. Text & Button (Reveals on Hover) */}
-              {/* ✅ FIX: Increased bottom padding (pb-12) to push title higher up */}
               <div className="absolute inset-0 flex flex-col justify-end px-8 pb-12 z-20">
                 <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
-                  <h4 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">{client.name}</h4>
+                  
+                  {/* --- UPDATED CLIENT NAME FONT --- */}
+                  <h4 className="text-2xl md:text-3xl font-bold text-white mb-2 drop-shadow-lg font-tech uppercase">{client.name}</h4>
                   
                   {/* Short description that appears on hover */}
                   <p className="text-blue-100 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
@@ -251,7 +268,8 @@ const Clients = () => {
                     <img src={selectedClient.logo} alt="logo" className="w-full h-full object-contain" />
                   </div>
                   <div>
-                    <h3 className="text-2xl font-bold text-white">{selectedClient.name}</h3>
+                    {/* --- UPDATED MODAL TITLE FONT --- */}
+                    <h3 className="text-2xl font-bold text-white font-tech uppercase">{selectedClient.name}</h3>
                     <p className="text-blue-400 text-sm">{selectedClient.description}</p>
                   </div>
                 </div>
@@ -264,7 +282,6 @@ const Clients = () => {
               </div>
 
               {/* Modal Body (Scrollable) */}
-              {/* FIX: Added 'no-scrollbar' class here */}
               <div className="p-8 overflow-y-auto no-scrollbar">
                 
                 {/* 1. Project Gallery Grid */}

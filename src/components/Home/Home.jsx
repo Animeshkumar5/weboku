@@ -5,7 +5,6 @@ import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from 'f
 // --- Sub-Component: Counter (Handles the Number Animation) ---
 const Counter = ({ value, suffix }) => {
   const ref = useRef(null);
-  // once: true ensures it only animates the first time you see it
   const isInView = useInView(ref, { once: true, margin: "-100px" });
   
   const motionValue = useMotionValue(0);
@@ -22,10 +21,8 @@ const Counter = ({ value, suffix }) => {
   }, [isInView, value, motionValue]);
 
   useEffect(() => {
-    // Subscribe to changes to update the text content directly (better performance)
     const unsubscribe = springValue.on("change", (latest) => {
       if (ref.current) {
-        // format to 0 decimal places
         ref.current.textContent = Math.floor(latest).toLocaleString() + suffix;
       }
     });
@@ -35,7 +32,7 @@ const Counter = ({ value, suffix }) => {
   return <span ref={ref} />;
 };
 
-// --- Sub-Component: Process Card (Unchanged) ---
+// --- Sub-Component: Process Card ---
 const Card = ({ title, desc, icon, index }) => {
   return (
     <div 
@@ -54,7 +51,8 @@ const Card = ({ title, desc, icon, index }) => {
             {icon}
           </div>
           <div>
-            <h3 className="text-4xl font-bold text-white mb-4">{title}</h3>
+            {/* Reverted to default font */}
+            <h3 className="text-3xl md:text-4xl font-bold text-white mb-4">{title}</h3>
             <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">{desc}</p>
             <button className="flex items-center text-blue-400 font-bold text-lg hover:text-white transition-colors group">
               Learn How We Do It 
@@ -62,6 +60,7 @@ const Card = ({ title, desc, icon, index }) => {
             </button>
           </div>
         </div>
+        {/* Reverted to default font */}
         <div className="absolute bottom-4 right-8 text-9xl font-bold text-white/5">0{index + 1}</div>
       </motion.div>
     </div>
@@ -138,7 +137,6 @@ const Home = () => {
     }
   ];
 
-  // UPDATED: Separated number and suffix for animation
   const stats = [
     { value: 500, suffix: "+", label: "Projects" },
     { value: 98, suffix: "%", label: "Satisfaction" },
@@ -146,12 +144,21 @@ const Home = () => {
     { value: 50, suffix: "+", label: "Experts" }
   ];
 
-  // Helper to find selected member
   const selectedMember = team.find(m => m.id === selectedTeamId);
 
   return (
     <div className="relative"> 
       
+      {/* --- IMPORT MICHROMA FONT --- */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+          .font-tech {
+            font-family: 'Michroma', sans-serif;
+          }
+        `}
+      </style>
+
       {/* Click Explosion Overlay */}
       <AnimatePresence>
         {isExploding && (
@@ -169,27 +176,31 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* Stats Section with Animation */}
+      {/* Stats Section */}
       <section className="py-20 bg-white/5 backdrop-blur-sm border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-blue-500 mb-2 tabular-nums">
+                {/* APPLIED font-tech ONLY TO NUMBERS */}
+                <div className="text-3xl md:text-5xl font-bold text-blue-500 mb-2 tabular-nums font-tech tracking-tighter">
                   <Counter value={stat.value} suffix={stat.suffix} />
                 </div>
-                <div className="text-gray-400 font-medium">{stat.label}</div>
+                {/* Reverted label to default font */}
+                <div className="text-gray-400 font-medium tracking-wide uppercase text-sm">{stat.label}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* --- ID ADDED: PROCESS SECTION --- */}
+      {/* Process Section */}
       <section id="process" className="text-white pb-32 relative">
         <div className="max-w-7xl mx-auto px-4 pt-20">
           <div className="text-center mb-20">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6">Our Process</h2>
+            {/* APPLIED font-tech TO HEADING */}
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 font-tech uppercase tracking-wide">Our Process</h2>
+            {/* Reverted description to default font */}
             <p className="text-xl text-gray-400">Scroll down to see how we deliver results.</p>
           </div>
           <div className="relative">
@@ -200,14 +211,16 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- ID ADDED: TEAM SECTION --- */}
+      {/* Team Section */}
       <section id="team" className="py-24 relative z-10">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+            {/* APPLIED font-tech TO HEADING */}
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white font-tech uppercase tracking-wide leading-relaxed">
               The Minds Behind <br className="md:hidden" />
               <span className="bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine"> Weboku</span>
             </h2>
+            {/* Reverted description to default font */}
             <p className="text-xl text-gray-400">Meet the experts driving your digital success.</p>
           </div>
 
@@ -228,7 +241,8 @@ const Home = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
                     </div>
                     <div className="absolute bottom-0 left-0 p-8 w-full">
-                      <motion.h3 layoutId={`title-${member.id}`} className="text-2xl font-bold text-white mb-1">{member.name}</motion.h3>
+                      {/* Reverted name to default font */}
+                      <motion.h3 layoutId={`title-${member.id}`} className="text-xl md:text-2xl font-bold text-white mb-1 uppercase">{member.name}</motion.h3>
                       <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
                       <div className="flex items-center text-gray-400 text-sm">
                         <MapPin size={14} className="mr-1" /> {member.location}
@@ -262,7 +276,8 @@ const Home = () => {
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto custom-scrollbar">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }}>
-                      <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-4xl font-bold text-white mb-2">{selectedMember.name}</motion.h2>
+                      {/* Reverted name to default font */}
+                      <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-3xl md:text-4xl font-bold text-white mb-2 uppercase">{selectedMember.name}</motion.h2>
                       <motion.p layoutId={`role-${selectedMember.id}`} className="text-xl text-blue-400 mb-6 font-medium">{selectedMember.role}</motion.p>
                       <p className="text-gray-300 leading-relaxed mb-8 text-lg">{selectedMember.bio}</p>
                       <div className="mb-8">
@@ -291,7 +306,7 @@ const Home = () => {
         </div>
       </section>
 
-      {/* --- ID ADDED: GET-STARTED SECTION --- */}
+      {/* Get Started Section */}
       <section id="get-started" className="py-32 relative z-20">
         <div className="absolute inset-0 bg-gradient-to-t from-blue-900/60 via-transparent to-transparent pointer-events-none"></div>
         <motion.div
@@ -300,7 +315,8 @@ const Home = () => {
           viewport={{ once: true }}
           className="max-w-4xl mx-auto px-4 relative z-10 text-center"
         >
-          <h2 className="text-4xl md:text-6xl font-bold mb-8 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine leading-tight py-2">
+          {/* APPLIED font-tech TO HEADING */}
+          <h2 className="text-3xl md:text-5xl font-bold mb-8 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine leading-tight py-2 font-tech uppercase tracking-wide">
             Ready to Scale Your Business?
           </h2>
           <div className="relative inline-block">
@@ -309,9 +325,10 @@ const Home = () => {
               transition={{ duration: 2, repeat: Infinity, ease: "easeOut" }}
               className="absolute inset-0 rounded-full bg-blue-500"
             />
+            {/* APPLIED font-tech TO BUTTON */}
             <button 
               onClick={handleStartProject}
-              className="relative bg-white text-blue-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.8)] z-10"
+              className="relative bg-white text-blue-600 px-10 py-5 rounded-full font-bold text-lg hover:bg-gray-100 transition-all transform hover:scale-105 inline-flex items-center shadow-[0_0_20px_rgba(37,99,235,0.5)] hover:shadow-[0_0_40px_rgba(37,99,235,0.8)] z-10 font-tech tracking-tighter"
             >
               Start Your Project <ArrowRight className="ml-2" size={24} />
             </button>
