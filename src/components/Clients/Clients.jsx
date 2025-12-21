@@ -160,7 +160,6 @@ const Clients = () => {
   const duplicatedClients = [...clientsData, ...clientsData]; 
 
   return (
-    // ✅ ADDED id="projects" HERE FOR HEADER NAVIGATION
     <section id="projects" className="py-24 bg-gray-950 border-b border-white/5 overflow-hidden relative z-10">
       
       {/* Header */}
@@ -185,28 +184,38 @@ const Clients = () => {
             <motion.div 
               key={`${client.id}-${index}`} 
               onClick={() => setSelectedClient(client)}
-              whileHover={{ scale: 1.05, zIndex: 10 }} // Pop up scale
-              className="relative w-[500px] h-[300px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group border border-white/5 bg-gray-900 shadow-xl transition-all duration-500"
+              whileHover={{ scale: 1.05, zIndex: 10 }}
+              className="relative w-[500px] h-[300px] flex-shrink-0 rounded-2xl overflow-hidden cursor-pointer group border border-white/5 bg-gray-900 shadow-xl"
             >
-              {/* Image - GREYSCALE BY DEFAULT, COLOR ON HOVER */}
+              {/* 1. Image Layer */}
               <img 
                 src={client.logo} 
                 alt={client.name} 
-                className="w-full h-full object-cover transition-all duration-500 
-                           filter grayscale opacity-40 
-                           group-hover:grayscale-0 group-hover:opacity-100" 
+                className="w-full h-full object-cover transition-all duration-700 
+                           filter grayscale opacity-50 
+                           group-hover:grayscale-0 group-hover:opacity-100 group-hover:scale-105" 
               />
               
-              {/* Overlay Gradient - Darker at bottom for visibility */}
-              <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/20 to-transparent opacity-60 group-hover:opacity-90 transition-opacity duration-300"></div>
+              {/* 2. SLIDE-UP OVERLAY (The "Border from Down" Effect) */}
+              <div className="absolute inset-0 bg-gradient-to-t from-blue-600/95 via-blue-900/90 to-blue-900/40 
+                              translate-y-full group-hover:translate-y-0 
+                              transition-transform duration-500 ease-out z-10 backdrop-blur-[2px]">
+              </div>
 
-              {/* Text Overlay & Modern Button */}
-              <div className="absolute bottom-0 left-0 p-8 w-full translate-y-4 group-hover:translate-y-0 transition-transform duration-300">
-                <h4 className="text-2xl font-bold text-gray-200 group-hover:text-white transition-colors mb-3 drop-shadow-md">{client.name}</h4>
-                
-                {/* Modern Glass Button */}
-                <div className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-sm font-semibold text-white group-hover:bg-blue-600 group-hover:border-blue-500 transition-all duration-300 opacity-0 group-hover:opacity-100 shadow-lg transform scale-95 group-hover:scale-100">
-                  View Project Details <ArrowRight size={16} />
+              {/* 3. Text & Button (Reveals on Hover) */}
+              <div className="absolute inset-0 flex flex-col justify-end p-8 z-20">
+                <div className="translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-out">
+                  <h4 className="text-3xl font-bold text-white mb-2 drop-shadow-lg">{client.name}</h4>
+                  
+                  {/* Short description that appears on hover */}
+                  <p className="text-blue-100 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
+                     {client.description}
+                  </p>
+                  
+                  {/* Action Button */}
+                  <button className="flex items-center gap-2 px-6 py-3 rounded-full bg-white text-blue-900 font-bold text-sm shadow-lg hover:bg-blue-50 hover:scale-105 transition-all duration-300">
+                    View Details <ArrowRight size={18} />
+                  </button>
                 </div>
               </div>
             </motion.div>
