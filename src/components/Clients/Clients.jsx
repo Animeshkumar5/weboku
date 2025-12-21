@@ -57,9 +57,9 @@ import stormImg2 from '../../assets/Client/stormdigi/2.png';
 import stormImg3 from '../../assets/Client/stormdigi/3.png';
 
 // --- UnoTrip ---
-import unoLogo from '../../assets/Client/UnoTrip/1.png';
-import unoImg1 from '../../assets/Client/UnoTrip/2.png';
-import unoImg2 from '../../assets/Client/UnoTrip/3.png';
+import unoLogo from '../../assets/Client/unoTrip/1.png';
+import unoImg1 from '../../assets/Client/unoTrip/2.png';
+import unoImg2 from '../../assets/Client/unoTrip/3.png';
 
 
 // ==========================================
