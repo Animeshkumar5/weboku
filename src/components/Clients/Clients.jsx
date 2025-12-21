@@ -57,7 +57,6 @@ import stormImg2 from '../../assets/Client/stormdigi/2.png';
 import stormImg3 from '../../assets/Client/stormdigi/3.png';
 
 // --- UnoTrip ---
-// ✅ Using your new 'tripdata' folder to avoid casing errors
 import unoLogo from '../../assets/Client/tripdata/1.png';
 import unoImg1 from '../../assets/Client/tripdata/2.png';
 import unoImg2 from '../../assets/Client/tripdata/3.png';
@@ -211,7 +210,7 @@ const Clients = () => {
                   
                   {/* Short description that appears on hover */}
                   <p className="text-blue-100 text-sm mb-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100 line-clamp-2">
-                     {client.description}
+                      {client.description}
                   </p>
                   
                   {/* Action Button */}
@@ -265,7 +264,8 @@ const Clients = () => {
               </div>
 
               {/* Modal Body (Scrollable) */}
-              <div className="p-8 overflow-y-auto custom-scrollbar">
+              {/* FIX: Added 'no-scrollbar' class here */}
+              <div className="p-8 overflow-y-auto no-scrollbar">
                 
                 {/* 1. Project Gallery Grid */}
                 <h4 className="text-white font-semibold mb-4 flex items-center gap-2">
@@ -334,8 +334,8 @@ const Clients = () => {
             className="fixed inset-0 z-[200] flex items-center justify-center bg-black/95 backdrop-blur-xl p-4 cursor-pointer"
           >
              <button 
-                onClick={() => setSelectedImage(null)}
-                className="fixed top-6 right-6 z-[210] bg-white/20 p-3 rounded-full text-white hover:bg-red-600 transition-colors shadow-lg border border-white/10"
+               onClick={() => setSelectedImage(null)}
+               className="fixed top-6 right-6 z-[210] bg-white/20 p-3 rounded-full text-white hover:bg-red-600 transition-colors shadow-lg border border-white/10"
              >
                 <X size={32} />
              </button>

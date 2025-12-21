@@ -1,6 +1,39 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRight, ArrowRight, X, Linkedin, Twitter, Github, Globe, MapPin } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from 'framer-motion';
+
+// --- Sub-Component: Counter (Handles the Number Animation) ---
+const Counter = ({ value, suffix }) => {
+  const ref = useRef(null);
+  // once: true ensures it only animates the first time you see it
+  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  
+  const motionValue = useMotionValue(0);
+  const springValue = useSpring(motionValue, { 
+    damping: 30, 
+    stiffness: 100, 
+    duration: 2 
+  });
+
+  useEffect(() => {
+    if (isInView) {
+      motionValue.set(value);
+    }
+  }, [isInView, value, motionValue]);
+
+  useEffect(() => {
+    // Subscribe to changes to update the text content directly (better performance)
+    const unsubscribe = springValue.on("change", (latest) => {
+      if (ref.current) {
+        // format to 0 decimal places
+        ref.current.textContent = Math.floor(latest).toLocaleString() + suffix;
+      }
+    });
+    return () => unsubscribe();
+  }, [springValue, suffix]);
+
+  return <span ref={ref} />;
+};
 
 // --- Sub-Component: Process Card (Unchanged) ---
 const Card = ({ title, desc, icon, index }) => {
@@ -105,11 +138,12 @@ const Home = () => {
     }
   ];
 
+  // UPDATED: Separated number and suffix for animation
   const stats = [
-    { number: "500+", label: "Projects" },
-    { number: "98%", label: "Satisfaction" },
-    { number: "10+", label: "Years Exp" },
-    { number: "50+", label: "Experts" }
+    { value: 500, suffix: "+", label: "Projects" },
+    { value: 98, suffix: "%", label: "Satisfaction" },
+    { value: 10, suffix: "+", label: "Years Exp" },
+    { value: 50, suffix: "+", label: "Experts" }
   ];
 
   // Helper to find selected member
@@ -135,13 +169,15 @@ const Home = () => {
         )}
       </AnimatePresence>
 
-      {/* Stats Section */}
+      {/* Stats Section with Animation */}
       <section className="py-20 bg-white/5 backdrop-blur-sm border-b border-white/5">
         <div className="max-w-7xl mx-auto px-4">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
             {stats.map((stat, index) => (
               <div key={index} className="text-center">
-                <div className="text-4xl md:text-5xl font-bold text-blue-500 mb-2">{stat.number}</div>
+                <div className="text-4xl md:text-5xl font-bold text-blue-500 mb-2 tabular-nums">
+                  <Counter value={stat.value} suffix={stat.suffix} />
+                </div>
                 <div className="text-gray-400 font-medium">{stat.label}</div>
               </div>
             ))}
