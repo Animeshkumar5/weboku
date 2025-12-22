@@ -2,7 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { ChevronRight, ArrowRight, X, Linkedin, Twitter, Github, Globe, MapPin } from 'lucide-react';
 import { motion, AnimatePresence, useInView, useMotionValue, useSpring } from 'framer-motion';
 
-// --- Sub-Component: Counter (Handles the Number Animation) ---
+// --- Sub-Component: Counter ---
 const Counter = ({ value, suffix }) => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-100px" });
@@ -43,7 +43,6 @@ const Card = ({ title, desc, icon, index }) => {
         initial={{ scale: 0.9, opacity: 0 }}
         whileInView={{ scale: 1, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        // Kept the wider card width from previous request
         className="relative w-full max-w-5xl h-[400px] rounded-3xl bg-gray-800/90 backdrop-blur-xl border border-white/10 shadow-2xl p-10 flex flex-col justify-center overflow-hidden"
       >
         <div className="absolute top-0 right-0 w-64 h-64 bg-blue-600/20 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
@@ -52,7 +51,6 @@ const Card = ({ title, desc, icon, index }) => {
             {icon}
           </div>
           <div>
-            {/* Heading uses the Tech font */}
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-tech uppercase tracking-wide">{title}</h3>
             <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">{desc}</p>
             <button className="flex items-center text-blue-400 font-bold text-lg hover:text-white transition-colors group">
@@ -90,14 +88,15 @@ const Home = () => {
     { title: "Custom Development", desc: "Scalable, secure, and lightning-fast code. We build robust solutions for complex business problems.", icon: "💻" }
   ];
 
+  // ✅ UPDATED TEAM DATA WITH LOCAL IMAGES
   const team = [
     {
       id: 1,
       name: "Anuj Agrahari",
       role: "Co-Founder",
       location: "Lucknow, IN",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?auto=format&fit=crop&q=80&w=400",
-      bio: "Visionary leader with a passion for educational reform and digital assessment strategies. dedicated to building scalable solutions.",
+      image: "/teamimages/anuj.png", // Correct path for Public folder
+      bio: "Visionary leader with a passion for educational reform and digital assessment strategies. Dedicated to building scalable solutions.",
       skills: ["Assessments", "Mentoring", "Curriculum Design", "Video Marketing", "SEO"],
       experience: "3+ Years",
       social: { linkedin: "#", twitter: "#", globe: "#" }
@@ -107,7 +106,7 @@ const Home = () => {
       name: "Ratnesh Pandey",
       role: "Co-Founder",
       location: "Lucknow, IN",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?auto=format&fit=crop&q=80&w=400",
+      image: "/teamimages/ratnesh.jpg",
       bio: "Expert in project management and cybersecurity. Orchestrating complex digital infrastructures and strategic planning.",
       skills: ["SEO", "Project Management", "Cybersecurity", "Strategic Planning", "Execution"],
       experience: "3+ Years",
@@ -118,7 +117,7 @@ const Home = () => {
       name: "Akash Kumar Das",
       role: "Tech Team Lead",
       location: "Lucknow, IN",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&q=80&w=400",
+      image: "/teamimages/akash.jpg",
       bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
       skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
       experience: "2+ Years",
@@ -129,10 +128,22 @@ const Home = () => {
       name: "Animesh Kumar",
       role: "Tech Team Lead",
       location: "Lucknow, IN",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=400",
+      image: "/teamimages/animesh.jpeg", // Keep this if no local image provided
       bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
       skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
       experience: "2+ Years",
+      social: { linkedin: "#", github: "#", twitter: "#" }
+    },
+    // ✅ ADDED: Dimple as Junior Developer
+    {
+      id: 5,
+      name: "Dimple",
+      role: "Junior Developer",
+      location: "Lucknow, IN",
+      image: "/teamimages/dimple.jpeg",
+      bio: "Aspiring developer with a keen eye for frontend details and a passion for creating seamless user experiences.",
+      skills: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
+      experience: "1+ Years",
       social: { linkedin: "#", github: "#", twitter: "#" }
     }
   ];
@@ -149,7 +160,6 @@ const Home = () => {
   return (
     <div className="relative"> 
       
-      {/* --- ADDED 'OUTFIT' FONT FOR NAMES --- */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@500;700&display=swap');
@@ -158,7 +168,6 @@ const Home = () => {
             font-family: 'Michroma', sans-serif;
           }
           
-          /* New beautiful font for names */
           .font-name {
             font-family: 'Outfit', sans-serif;
           }
@@ -241,12 +250,9 @@ const Home = () => {
                       <div className="absolute inset-0 bg-gradient-to-t from-gray-950 via-gray-950/40 to-transparent"></div>
                     </div>
                     <div className="absolute bottom-0 left-0 p-8 w-full">
-                      
-                      {/* UPDATED: Uses new 'font-name' (Outfit) instead of 'font-tech' */}
                       <motion.h3 layoutId={`title-${member.id}`} className="text-xl md:text-2xl font-bold text-white mb-1 font-name uppercase tracking-wide">
                         {member.name}
                       </motion.h3>
-                      
                       <motion.p layoutId={`role-${member.id}`} className="text-blue-400 font-medium mb-2">{member.role}</motion.p>
                       <div className="flex items-center text-gray-400 text-sm">
                         <MapPin size={14} className="mr-1" /> {member.location}
@@ -280,12 +286,9 @@ const Home = () => {
                   </div>
                   <div className="w-full md:w-3/5 p-8 md:p-12 flex flex-col justify-center overflow-y-auto custom-scrollbar">
                     <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 20 }} transition={{ delay: 0.1 }}>
-                      
-                      {/* UPDATED: Uses new 'font-name' (Outfit) in Modal as well */}
                       <motion.h2 layoutId={`title-${selectedMember.id}`} className="text-3xl md:text-4xl font-bold text-white mb-2 font-name uppercase tracking-wide">
                         {selectedMember.name}
                       </motion.h2>
-                      
                       <motion.p layoutId={`role-${selectedMember.id}`} className="text-xl text-blue-400 mb-6 font-medium">{selectedMember.role}</motion.p>
                       <p className="text-gray-300 leading-relaxed mb-8 text-lg">{selectedMember.bio}</p>
                       <div className="mb-8">
