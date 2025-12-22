@@ -5,6 +5,17 @@ import { motion } from 'framer-motion';
 const Contact = () => {
   return (
     <section id="contact" className="relative py-24">
+      
+      {/* --- IMPORT MICHROMA FONT --- */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
+          .font-tech {
+            font-family: 'Michroma', sans-serif;
+          }
+        `}
+      </style>
+
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-2 gap-12 items-center">
           
@@ -15,11 +26,10 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* SHINE EFFECT TEXT START */}
-            <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.gray.100),theme(colors.sky.300),theme(colors.gray.100),theme(colors.gray.200))] bg-[length:200%_auto] animate-shine">
+            {/* UPDATED: Added font-tech to 'Get In Touch' Heading */}
+            <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.gray.100),theme(colors.sky.300),theme(colors.gray.100),theme(colors.gray.200))] bg-[length:200%_auto] animate-shine font-tech uppercase tracking-wide">
               Get In Touch
             </h2>
-            {/* SHINE EFFECT TEXT END */}
             
             <p className="text-lg text-gray-300 mb-8">
               Have a project in mind? Let's talk about how we can help you succeed.
