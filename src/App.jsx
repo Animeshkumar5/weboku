@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { AnimatePresence } from 'framer-motion';
 import Header from './components/Header/Header';
 import Hero from './components/Hero/Hero';
-// 1. IMPORT CLIENTS
 import Clients from './components/Clients/Clients'; 
 import Home from './components/Home/Home';
 import Contact from './components/Contact/Contact';
@@ -11,6 +10,9 @@ import Preloader from './components/Preloader/Preloader';
 import InteractiveBackground from './components/InteractiveBackground';
 import ScrollToTop from './components/ScrollToTop'; 
 import FloatingMail from './components/FloatingMail'; 
+
+// ✅ 1. IMPORT THE TRUSTED PARTNERS COMPONENT
+import TrustedPartners from './components/TrustedPartners/TrustedPartners';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
@@ -37,9 +39,13 @@ function App() {
         <InteractiveBackground />
         
         <Header isScrolled={isScrolled} />
+        
         <Hero />
         
-        {/* 2. ADD CLIENTS COMPONENT HERE */}
+        {/* ✅ 2. ADDED TRUSTED PARTNERS HERE (Between Hero and Projects) */}
+        <TrustedPartners />
+        
+        {/* Featured Projects */}
         <Clients />
 
         <Home />
