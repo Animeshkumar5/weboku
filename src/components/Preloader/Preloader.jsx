@@ -11,30 +11,36 @@ const Preloader = () => {
       // Full screen, z-index very high to sit on top of everything
       className="fixed inset-0 z-[9999] flex items-center justify-center bg-gray-950"
     >
-      <motion.div
-        // Container Animation (Pulsing Effect for both Logo and Text)
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1.1 }}
-        transition={{ 
-          duration: 1, 
-          repeat: Infinity, 
-          repeatType: "reverse", 
-          ease: "easeInOut" 
-        }}
-        className="flex flex-col md:flex-row items-center gap-4 md:gap-6"
-      >
-        {/* Logo Image */}
-        <img 
-          src="/favicon/favicon-96x96.png" 
-          alt="Weboku Logo" 
-          className="w-20 h-20 md:w-24 md:h-24 object-contain rounded-xl shadow-[0_0_30px_rgba(59,130,246,0.5)]" 
+      <div className="relative flex items-center justify-center">
+        
+        {/* --- 1. SPINNING RADIANT BACKGROUND --- */}
+        <motion.div
+          animate={{ rotate: 360 }}
+          transition={{ 
+            duration: 3, // Speed of rotation (seconds)
+            repeat: Infinity, 
+            ease: "linear" 
+          }}
+          className="absolute w-32 h-32 md:w-40 md:h-40 rounded-3xl bg-gradient-to-br from-blue-600 via-cyan-400 to-blue-600 shadow-[0_0_60px_rgba(59,130,246,0.6)] opacity-90"
         />
 
-        {/* Text with Matching Brand Gradient */}
-        <div className="text-4xl md:text-6xl font-bold tracking-[0.2em] bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-cyan-300 to-blue-400 drop-shadow-2xl">
-          WEBOKU
-        </div>
-      </motion.div>
+        {/* --- 2. LOGO IMAGE (Sits on top) --- */}
+        <motion.img 
+          // Optional: Gentle pulse animation for the logo itself
+          initial={{ scale: 0.9 }}
+          animate={{ scale: 1.05 }}
+          transition={{ 
+            duration: 1.5, 
+            repeat: Infinity, 
+            repeatType: "reverse", 
+            ease: "easeInOut" 
+          }}
+          src="/favicon/favicon-96x96.png" 
+          alt="Weboku Logo" 
+          className="relative z-10 w-24 h-24 md:w-28 md:h-28 object-contain rounded-2xl" 
+        />
+
+      </div>
     </motion.div>
   );
 };

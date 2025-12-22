@@ -1,5 +1,5 @@
 import React from 'react';
-import { Mail, Phone, MapPin, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
+import { Mail, Phone, MapPin, Clock, Facebook, Twitter, Linkedin, Instagram } from 'lucide-react';
 import { motion } from 'framer-motion';
 
 const Contact = () => {
@@ -26,7 +26,7 @@ const Contact = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            {/* UPDATED: Added font-tech to 'Get In Touch' Heading */}
+            {/* Heading */}
             <h2 className="text-4xl font-bold mb-6 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.gray.200),theme(colors.gray.100),theme(colors.sky.300),theme(colors.gray.100),theme(colors.gray.200))] bg-[length:200%_auto] animate-shine font-tech uppercase tracking-wide">
               Get In Touch
             </h2>
@@ -36,17 +36,6 @@ const Contact = () => {
             </p>
             
             <div className="space-y-6">
-              {/* Email */}
-              <div className="flex items-start space-x-4">
-                <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400 border border-blue-500/20">
-                  <Mail size={24} />
-                </div>
-                <div>
-                  <h4 className="font-semibold text-white">Email</h4>
-                  <p className="text-gray-400">info@weboku.com</p>
-                </div>
-              </div>
-              
               {/* Phone */}
               <div className="flex items-start space-x-4">
                 <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400 border border-blue-500/20">
@@ -54,18 +43,43 @@ const Contact = () => {
                 </div>
                 <div>
                   <h4 className="font-semibold text-white">Phone</h4>
-                  <p className="text-gray-400">+1 (555) 123-4567</p>
+                  <p className="text-gray-400">+91 (800) 600-8804</p>
+                </div>
+              </div>
+
+              {/* Email */}
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400 border border-blue-500/20">
+                  <Mail size={24} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Email</h4>
+                  <p className="text-gray-400">support@weboku.com</p>
                 </div>
               </div>
               
-              {/* Office */}
+              {/* Address */}
               <div className="flex items-start space-x-4">
                 <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400 border border-blue-500/20">
                   <MapPin size={24} />
                 </div>
                 <div>
-                  <h4 className="font-semibold text-white">Office</h4>
-                  <p className="text-gray-400">123 Business Ave, Suite 100<br/>Digital City, DC 12345</p>
+                  <h4 className="font-semibold text-white">Address</h4>
+                  <p className="text-gray-400 max-w-sm">
+                    Purani Bazar, Bhadi, Landmark: Near Kalawati Hospital, Shahganj,<br/>
+                    Jaunpur, Uttar Pradesh 223101, India
+                  </p>
+                </div>
+              </div>
+
+              {/* Hours (New Section) */}
+              <div className="flex items-start space-x-4">
+                <div className="bg-blue-600/20 p-3 rounded-lg text-blue-400 border border-blue-500/20">
+                  <Clock size={24} />
+                </div>
+                <div>
+                  <h4 className="font-semibold text-white">Hours</h4>
+                  <p className="text-gray-400">Mon–Sat, 10:00–19:00 IST</p>
                 </div>
               </div>
             </div>
