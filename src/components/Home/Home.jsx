@@ -95,7 +95,7 @@ const Home = () => {
       name: "Anuj Agrahari",
       role: "Co-Founder",
       location: "Lucknow, IN",
-      image: "/teamimages/anuj.png", // Correct path for Public folder
+      image: "/teamimages/Anuj1.png", // Correct path for Public folder
       bio: "Visionary leader with a passion for educational reform and digital assessment strategies. Dedicated to building scalable solutions.",
       skills: ["Assessments", "Mentoring", "Curriculum Design", "Video Marketing", "SEO"],
       experience: "3+ Years",
@@ -106,7 +106,7 @@ const Home = () => {
       name: "Ratnesh Pandey",
       role: "Co-Founder",
       location: "Lucknow, IN",
-      image: "/teamimages/ratnesh.jpg",
+      image: "/teamimages/rat.png",
       bio: "Expert in project management and cybersecurity. Orchestrating complex digital infrastructures and strategic planning.",
       skills: ["SEO", "Project Management", "Cybersecurity", "Strategic Planning", "Execution"],
       experience: "3+ Years",
@@ -117,7 +117,7 @@ const Home = () => {
       name: "Akash Kumar Das",
       role: "Tech Team Lead",
       location: "Lucknow, IN",
-      image: "/teamimages/akash.jpg",
+      image: "/teamimages/Akash1.png",
       bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
       skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
       experience: "2+ Years",
@@ -128,19 +128,19 @@ const Home = () => {
       name: "Animesh Kumar",
       role: "Tech Team Lead",
       location: "Lucknow, IN",
-      image: "/teamimages/animesh.jpeg", // Keep this if no local image provided
+      image: "/teamimages/Ani.png", 
       bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
       skills: ["React.js", "Node.js", "Express.js", "MongoDB", "Next.js", "System Design"],
       experience: "2+ Years",
       social: { linkedin: "#", github: "#", twitter: "#" }
     },
-    // ✅ ADDED: Dimple as Junior Developer
+    
     {
       id: 5,
       name: "Dimple",
       role: "Junior Developer",
       location: "Lucknow, IN",
-      image: "/teamimages/dimple.jpeg",
+      image: "/teamimages/Dimpal.png",
       bio: "Aspiring developer with a keen eye for frontend details and a passion for creating seamless user experiences.",
       skills: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
       experience: "1+ Years",
