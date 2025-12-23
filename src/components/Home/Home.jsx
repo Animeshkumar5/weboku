@@ -126,7 +126,7 @@ const Home = () => {
     {
       id: 4,
       name: "Animesh Kumar",
-      role: "Tech Team Lead",
+      role: "Developer",
       location: "Lucknow, IN",
       image: "/teamimages/Ani.png", 
       bio: "Full Stack Wizard specializing in the MERN stack. Leads the technical team to deliver robust and scalable web applications.",
@@ -138,7 +138,7 @@ const Home = () => {
     {
       id: 5,
       name: "Dimple",
-      role: "Junior Developer",
+      role: "Developer",
       location: "Lucknow, IN",
       image: "/teamimages/Dimpal.png",
       bio: "Aspiring developer with a keen eye for frontend details and a passion for creating seamless user experiences.",
