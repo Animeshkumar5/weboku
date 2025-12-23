@@ -95,7 +95,7 @@ const Home = () => {
       name: "Anuj Agrahari",
       role: "Co-Founder",
       location: "Lucknow, IN",
-      image: "/teamimages/Anuj.png", // Correct path for Public folder
+      image: "/teamimages/Anuj1.png", // Correct path for Public folder
       bio: "Visionary leader with a passion for educational reform and digital assessment strategies. Dedicated to building scalable solutions.",
       skills: ["Assessments", "Mentoring", "Curriculum Design", "Video Marketing", "SEO"],
       experience: "3+ Years",
