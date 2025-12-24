@@ -36,12 +36,12 @@ const Hero = () => {
             animate={{ opacity: 1, x: 0 }}
             transition={{ duration: 0.8 }}
           >
-            {/* UPDATED FONT FOR HEADING */}
-            <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight font-tech tracking-wide uppercase">
-              Transform Your <span className="text-blue-500">Digital Presence</span>
+            {/* UPDATED: Heading size reduced to text-2xl (mobile) and text-4xl (desktop) */}
+            <h1 className="text-2xl md:text-4xl font-bold mb-6 leading-tight font-tech tracking-wide uppercase">
+              Your Website Looks Good <span className="text-blue-500">But It’s Not Making You Money</span>
             </h1>
-            <p className="text-xl mb-8 text-gray-300">
-              We help businesses grow online with cutting-edge digital marketing strategies, stunning web designs, and data-driven results.
+            <p className="text-lg mb-8 text-gray-300">
+              If your website is not generating leads, inquiries, or sales, it’s just an online brochure.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-center">
               
@@ -57,12 +57,9 @@ const Hero = () => {
               </motion.button>
 
               {/* 2. BUTTON: Links to Projects Section WITH GRADIENT BORDER */}
-              {/* We use a wrapper div with padding (p-[2px]) and a gradient background to create the border effect */}
               <div className="group p-[2px] rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 transition-all shadow-lg shadow-blue-900/20 hover:shadow-blue-500/40 w-full sm:w-auto">
                 <button 
                   onClick={() => scrollToSection('projects')}
-                  // The inner button has a solid background to mask the center, leaving only the gradient border visible.
-                  // On hover, bg becomes transparent, filling the button with the gradient.
                   className="w-full sm:w-auto px-8 py-4 rounded-full font-semibold bg-gray-950 text-white group-hover:bg-transparent transition-all relative z-10"
                 >
                   View Our Work
