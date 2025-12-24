@@ -52,6 +52,7 @@ const Card = ({ title, desc, icon, index }) => {
             {icon}
           </div>
           <div>
+            {/* UPDATED: Ensuring font-tech uses Lato */}
             <h3 className="text-3xl md:text-4xl font-bold text-white mb-4 font-tech uppercase tracking-wide">{title}</h3>
             <p className="text-xl text-gray-300 leading-relaxed mb-8 max-w-lg">{desc}</p>
             <button className="flex items-center text-blue-400 font-bold text-lg hover:text-white transition-colors group">
@@ -96,6 +97,7 @@ const ComparisonSection = () => {
           <div className="inline-block px-4 py-1.5 rounded-full border border-gray-800 bg-gray-900/50 backdrop-blur-md text-sm font-medium text-gray-300 mb-6">
             🔥 Conversion-Focused Website Development
           </div>
+          {/* UPDATED: Font change */}
           <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white font-tech uppercase tracking-wide">
             Other Agencies <span className="text-gray-600 font-serif italic lowercase text-3xl">v/s</span> <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 to-emerald-400">Weboku</span>
           </h2>
@@ -130,9 +132,13 @@ const ComparisonSection = () => {
             <div className="absolute inset-0 bg-gradient-to-b from-emerald-500/20 to-cyan-500/5 rounded-3xl blur-xl transform scale-95" />
             <div className="relative bg-[#0F1115] border border-gray-800 p-8 md:p-10 rounded-3xl shadow-2xl overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 blur-[60px] rounded-full pointer-events-none" />
-              <div className="flex items-center gap-3 mb-8 relative z-10">
-                <div className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-emerald-500 rounded-lg flex items-center justify-center">
-                    <Zap className="text-black fill-current" size={20} />
+              <div className="flex items-center gap-4 mb-8 relative z-10">
+                <div className="w-12 h-12 flex items-center justify-center">
+                    <img 
+                        src="/favicon/favicon-96x96.png" 
+                        alt="Weboku Logo" 
+                        className="w-full h-full object-contain"
+                    />
                 </div>
                 <h3 className="text-3xl font-bold text-white font-name">Weboku</h3>
               </div>
@@ -158,6 +164,7 @@ const ComparisonSection = () => {
                 <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-black/50 border border-gray-700 text-gray-300 text-sm mb-8">
                     <Smartphone size={14} className="text-emerald-400" /> Book a free strategy call
                 </div>
+                {/* UPDATED: Font change */}
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight font-tech">
                     Let’s Fix Your Website Before You<br className="hidden md:block" /> Waste Money on Ads.
                 </h2>
@@ -299,16 +306,22 @@ const Home = () => {
   const selectedMember = team.find(m => m.id === selectedTeamId);
 
   return (
-    // FIXED: Removed "overflow-x-hidden" to restore sticky scrolling
     <div className="relative min-h-screen text-white selection:bg-emerald-500/30"> 
       
       <InteractiveBackground />
 
       <div className="relative z-10">
+        {/* --- STYLE UPDATES --- */}
         <style>
             {`
-            @import url('https://fonts.googleapis.com/css2?family=Michroma&family=Outfit:wght@500;700&display=swap');
-            .font-tech { font-family: 'Michroma', sans-serif; }
+            /* Force Lato Import */
+            @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700;900&family=Outfit:wght@500;700&display=swap');
+            
+            /* Overwrite .font-tech with !important to ensure it takes precedence */
+            .font-tech { 
+                font-family: 'Lato', sans-serif !important; 
+            }
+            
             .font-name { font-family: 'Outfit', sans-serif; }
             .custom-scrollbar::-webkit-scrollbar { width: 8px; }
             .custom-scrollbar::-webkit-scrollbar-track { background: #111827; }
@@ -350,10 +363,11 @@ const Home = () => {
             </div>
         </section>
 
-        {/* Process Section - STICKY CARDS SHOULD WORK NOW */}
+        {/* Process Section */}
         <section id="process" className="text-white pb-32 relative">
             <div className="max-w-7xl mx-auto px-4 pt-20">
             <div className="text-center mb-20">
+                {/* UPDATED: Font change */}
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 font-tech uppercase tracking-wide">Our Process</h2>
                 <p className="text-xl text-gray-400">Scroll down to see how we deliver results.</p>
             </div>
@@ -372,6 +386,7 @@ const Home = () => {
         <section id="team" className="py-24 relative z-10">
             <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
+                {/* UPDATED: Font change */}
                 <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white font-tech uppercase tracking-wide leading-relaxed">
                 The Minds Behind <br className="md:hidden" />
                 <span className="bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine"> Weboku</span>
@@ -472,6 +487,7 @@ const Home = () => {
             viewport={{ once: true }}
             className="max-w-4xl mx-auto px-4 relative z-10 text-center"
             >
+            {/* UPDATED: Font change */}
             <h2 className="text-3xl md:text-5xl font-bold mb-8 bg-clip-text text-transparent bg-[linear-gradient(to_right,theme(colors.white),theme(colors.gray.200),theme(colors.sky.300),theme(colors.gray.200),theme(colors.white))] bg-[length:200%_auto] animate-shine leading-tight py-2 font-tech uppercase tracking-wide">
                 Ready to Scale Your Business?
             </h2>
