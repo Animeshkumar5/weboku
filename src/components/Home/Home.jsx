@@ -288,7 +288,7 @@ const Home = () => {
       name: "Dimple",
       role: "Developer",
       location: "Lucknow, IN",
-      image: "/teamimages/Dimpal.png",
+      image: "/teamimages/dimple.jpeg",
       bio: "Aspiring developer with a keen eye for frontend details and a passion for creating seamless user experiences.",
       skills: ["HTML", "CSS", "JavaScript", "React.js", "Tailwind CSS"],
       experience: "1+ Years",

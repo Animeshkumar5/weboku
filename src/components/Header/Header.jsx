@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -7,15 +7,50 @@ const Header = ({ isScrolled }) => {
   const [activeTab, setActiveTab] = useState('Home');
 
   // Navigation Links
-  const navLinks = ['Home', 'Process', 'Projects', 'Team', 'Contact'];
+  const navLinks = ['Home', 'Projects', 'Process', 'Team', 'Contact'];
 
-  // Smooth Scroll Handler
+  // --- NEW: Scroll Spy Logic ---
+  useEffect(() => {
+    const handleScrollSpy = () => {
+      // Get current scroll position + offset for header height
+      const scrollPosition = window.scrollY + 100;
+
+      // Loop through links to find which section is in view
+      for (const link of navLinks) {
+        const section = document.getElementById(link.toLowerCase());
+        
+        if (section) {
+          const sectionTop = section.offsetTop;
+          const sectionHeight = section.offsetHeight;
+
+          // Check if scroll position is within this section
+          if (
+            scrollPosition >= sectionTop &&
+            scrollPosition < sectionTop + sectionHeight
+          ) {
+            setActiveTab(link);
+            break; // Stop loop once active section is found
+          }
+        }
+      }
+    };
+
+    // Attach scroll event listener
+    window.addEventListener('scroll', handleScrollSpy);
+    
+    // Initial check in case page reloads scrolled down
+    handleScrollSpy();
+
+    // Cleanup on unmount
+    return () => window.removeEventListener('scroll', handleScrollSpy);
+  }, []);
+
+  // Smooth Scroll Handler (Click)
   const handleScroll = (e, targetId) => {
     e.preventDefault();
     const element = document.getElementById(targetId.toLowerCase());
     
     if (element) {
-      // Offset for fixed header height
       const headerOffset = 80; 
       const elementPosition = element.getBoundingClientRect().top;
       const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
@@ -25,6 +60,9 @@ const Header = ({ isScrolled }) => {
         behavior: "smooth"
       });
       
+      // We don't strictly need to setActiveTab here because the 
+      // scroll event listener will catch the movement, 
+      // but setting it gives instant feedback.
       setActiveTab(targetId);
       setIsMenuOpen(false);
     }
@@ -44,9 +82,8 @@ const Header = ({ isScrolled }) => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           
-          {/* --- LOGO SECTION UPDATED --- */}
+          {/* --- LOGO SECTION --- */}
           <div className="flex items-center cursor-pointer gap-3" onClick={(e) => handleScroll(e, 'Home')}>
-            {/* Added Favicon Image */}
             <img 
               src="/favicon/favicon-96x96.png" 
               alt="Weboku Logo" 
@@ -64,6 +101,8 @@ const Header = ({ isScrolled }) => {
                 key={item}
                 href={`#${item.toLowerCase()}`}
                 onClick={(e) => handleScroll(e, item)}
+                // We keep onMouseEnter for hover effect, but it won't permanently change state vs scroll
+                // If you want hover to NOT change active state permanently, remove onMouseEnter
                 onMouseEnter={() => setActiveTab(item)}
                 className="relative px-4 py-2 rounded-full text-sm font-medium transition-colors"
               >
@@ -80,12 +119,11 @@ const Header = ({ isScrolled }) => {
               </a>
             ))}
 
-            {/* CTA Button with Gradient Outline Effect */}
+            {/* CTA Button */}
             <div className="ml-4 group p-[2px] rounded-full bg-gradient-to-r from-blue-500 to-cyan-500 hover:from-blue-400 hover:to-cyan-400 transition-all shadow-[0_0_15px_rgba(59,130,246,0.4)] hover:shadow-blue-500/40">
               <motion.button 
                 whileTap={{ scale: 0.95 }}
                 onClick={(e) => handleScroll(e, 'get-started')}
-                // Inner button logic: solid bg normally, transparent on hover to show full gradient
                 className="bg-gray-900 text-white px-6 py-2 rounded-full font-bold text-sm group-hover:bg-transparent transition-all relative z-10 block"
               >
                 Get Started
@@ -119,22 +157,25 @@ const Header = ({ isScrolled }) => {
                 <a
                   key={item}
                   href={`#${item.toLowerCase()}`}
-                  className="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/10 rounded-lg transition-all font-medium"
+                  className={`block px-4 py-3 rounded-lg transition-all font-medium ${
+                    activeTab === item 
+                      ? 'bg-blue-600/20 text-blue-400 border border-blue-500/30' 
+                      : 'text-gray-300 hover:text-white hover:bg-white/10'
+                  }`}
                   onClick={(e) => handleScroll(e, item)}
                 >
                   {item}
                 </a>
               ))}
               <div className="pt-4">
-                 {/* Mobile CTA with Gradient Outline */}
-                 <div className="w-full p-[2px] rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500">
+                  <div className="w-full p-[2px] rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500">
                     <button 
                       onClick={(e) => handleScroll(e, 'get-started')}
                       className="w-full bg-gray-900 text-white px-6 py-3 rounded-lg font-bold hover:bg-gray-800 transition-colors"
                     >
                       Get Started
                     </button>
-                 </div>
+                  </div>
               </div>
             </div>
           </motion.div>
